@@ -9,7 +9,7 @@ defmodule AdventOfCode2025.Days.Day01 do
   @max 99
 
   def solve do
-    input = Input.read("day01")
+    input = Input.read("day01") |> String.split("\n")
     result = part1(input)
     IO.puts("Result: #{result}")
     result2 = part2(input)

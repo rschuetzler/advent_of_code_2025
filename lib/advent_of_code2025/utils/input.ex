@@ -22,7 +22,6 @@ defmodule AdventOfCode2025.Utils.Input do
       {:ok, contents} ->
         contents
         |> String.trim()
-        |> String.split("\n")
 
       {:error, reason} ->
         raise "Failed to read input file #{day}.txt: #{inspect(reason)}"
