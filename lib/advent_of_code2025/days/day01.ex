@@ -9,7 +9,7 @@ defmodule AdventOfCode2025.Days.Day01 do
   @max 99
 
   def solve do
-    input = Input.read("day01") |> String.split("\n")
+    input = Input.read("day01")
     result = part1(input)
     IO.puts("Result: #{result}")
     result2 = part2(input)
@@ -106,7 +106,7 @@ defmodule AdventOfCode2025.Days.Day01 do
     distance = String.to_integer(value)
     new_value = start_at - distance
     zeros = Integer.floor_div(distance, @max + 1)
-    IO.puts("Left #{distance}")
+    # IO.puts("Left #{distance}")
 
     new_value =
       cond do
@@ -125,14 +125,14 @@ defmodule AdventOfCode2025.Days.Day01 do
       end
 
     {zeros, new_value}
-    IO.inspect({zeros, new_value})
+    # IO.inspect({zeros, new_value})
   end
 
   defp rotate_dial_and_count({"R", value}, start_at) do
     distance = String.to_integer(value)
     new_value = start_at + distance
     zeros = Integer.floor_div(distance, @max + 1)
-    IO.puts("Right #{distance}")
+    # IO.puts("Right #{distance}")
 
     new_value =
       cond do
@@ -151,6 +151,6 @@ defmodule AdventOfCode2025.Days.Day01 do
       end
 
     {zeros, new_value}
-    IO.inspect({zeros, new_value})
+    # IO.inspect({zeros, new_value})
   end
 end

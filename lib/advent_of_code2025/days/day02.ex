@@ -7,7 +7,7 @@ defmodule AdventOfCode2025.Days.Day02 do
 
   def solve do
     input =
-      Input.read("day02")
+      Input.read_raw("day02")
       |> parse_inputs()
 
     result = part1(input)
