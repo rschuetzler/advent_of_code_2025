@@ -17,17 +17,13 @@ defmodule AdventOfCode2025.Days.Day04 do
   end
 
   def part1(inputs) do
-    get_neighbors(inputs, 0, 0)
-
-    Enum.map(0..(length(inputs) - 1), fn row ->
-      Enum.map(0..length(Enum.at(inputs, 0)), fn col -> can_remove_paper?(inputs, col, row) end)
-    end)
+    get_removables(inputs)
     |> List.flatten()
     |> Enum.count(fn x -> x == true end)
   end
 
   def part2(inputs) do
-    inputs
+    count_paper(inputs) - count_paper(remove(inputs))
   end
 
   def prep_inputs(input) do
@@ -71,6 +67,35 @@ defmodule AdventOfCode2025.Days.Day04 do
       num_neighbors < 4
     else
       false
+    end
+  end
+
+  def get_removables(input) do
+    Enum.map(0..(length(input) - 1), fn row ->
+      Enum.map(0..length(Enum.at(input, 0)), fn col -> can_remove_paper?(input, col, row) end)
+    end)
+  end
+
+  def count_paper(input) do
+    input
+    |> List.flatten()
+    |> Enum.count(fn x -> x == "@" end)
+  end
+
+  def remove_paper(input, removal) do
+    Enum.zip_with(input, removal, fn input_row, removal_row ->
+      Enum.zip_with(input_row, removal_row, fn i, r -> if r, do: ".", else: i end)
+    end)
+  end
+
+  def remove(input) do
+    removals = get_removables(input)
+    new_array = remove_paper(input, removals)
+
+    if get_removables(new_array) |> List.flatten() |> Enum.any?() do
+      remove(new_array)
+    else
+      new_array
     end
   end
 end
