@@ -27,7 +27,7 @@ defmodule AdventOfCode2025.Days.Day05 do
   end
 
   def part2(input) do
-    input.fresh
+    count_fresh(input.fresh)
   end
 
   def prep_inputs(input) do
@@ -61,6 +61,29 @@ defmodule AdventOfCode2025.Days.Day05 do
     Enum.any?(input.fresh, fn x -> item in x end)
   end
 
-  def merge_duplicates(fresh) do
+  def count_fresh(fresh) do
+    fresh = Enum.sort_by(fresh, &Enum.at(&1, 0))
+
+    fresh
+    |> List.foldl(%{max: 0, total: 0}, fn x, acc ->
+      IO.inspect(x)
+
+      cond do
+        acc.max > Enum.at(x, 1) ->
+          IO.inspect(acc, label: "Max already higher")
+          acc
+
+        Enum.at(x, 0) > acc.max ->
+          IO.inspect(
+            %{max: Enum.at(x, 1), total: acc.total + (Enum.at(x, 1) - Enum.at(x, 0) + 1)},
+            label: "full set"
+          )
+
+        true ->
+          IO.inspect(%{max: Enum.at(x, 1), total: acc.total + (Enum.at(x, 1) - acc.max)},
+            label: "move the max"
+          )
+      end
+    end)
   end
 end
