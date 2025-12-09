@@ -38,7 +38,7 @@ defmodule AdventOfCode2025.Utils.Input do
       |> Path.join("#{day}.txt")
 
     case File.read(file_path) do
-      {:ok, contents} -> contents |> String.trim()
+      {:ok, contents} -> contents
       {:error, reason} -> raise "Failed to read input file #{day}.txt: #{inspect(reason)}"
     end
   end
